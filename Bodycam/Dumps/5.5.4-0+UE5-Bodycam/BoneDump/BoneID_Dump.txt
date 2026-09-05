@@ -1,0 +1,273 @@
+// Bone ID dump (Dumper-7)
+// Best skeleton selected from 50 candidate mesh(es).
+// 89 bones (from component: CharacterMesh0, owned by Pawn/Character)
+enum BoneID : int
+{
+    ROOT = 0,
+    PELVIS = 1,
+    SPINE_01 = 2,
+    SPINE_02 = 3,
+    SPINE_03 = 4,
+    CLAVICLE_L = 5,
+    UPPERARM_L = 6,
+    LOWERARM_L = 7,
+    HAND_L = 8,
+    INDEX_01_L = 9,
+    INDEX_02_L = 10,
+    INDEX_03_L = 11,
+    MIDDLE_01_L = 12,
+    MIDDLE_02_L = 13,
+    MIDDLE_03_L = 14,
+    PINKY_01_L = 15,
+    PINKY_02_L = 16,
+    PINKY_03_L = 17,
+    RING_01_L = 18,
+    RING_02_L = 19,
+    RING_03_L = 20,
+    THUMB_01_L = 21,
+    THUMB_02_L = 22,
+    THUMB_03_L = 23,
+    LOWERARM_TWIST_01_L = 24,
+    UPPERARM_TWIST_01_L = 25,
+    CLAVICLE_R = 26,
+    UPPERARM_R = 27,
+    LOWERARM_R = 28,
+    HAND_R = 29,
+    INDEX_01_R = 30,
+    INDEX_02_R = 31,
+    INDEX_03_R = 32,
+    MIDDLE_01_R = 33,
+    MIDDLE_02_R = 34,
+    MIDDLE_03_R = 35,
+    PINKY_01_R = 36,
+    PINKY_02_R = 37,
+    PINKY_03_R = 38,
+    RING_01_R = 39,
+    RING_02_R = 40,
+    RING_03_R = 41,
+    THUMB_01_R = 42,
+    THUMB_02_R = 43,
+    THUMB_03_R = 44,
+    LOWERARM_TWIST_01_R = 45,
+    UPPERARM_TWIST_01_R = 46,
+    NECK_01 = 47,
+    HEAD = 48,
+    THIGH_L = 49,
+    CALF_L = 50,
+    CALF_TWIST_01_L = 51,
+    FOOT_L = 52,
+    BALL_L = 53,
+    THIGH_TWIST_01_L = 54,
+    THIGH_R = 55,
+    CALF_R = 56,
+    CALF_TWIST_01_R = 57,
+    FOOT_R = 58,
+    BALL_R = 59,
+    THIGH_TWIST_01_R = 60,
+    IK_FOOT_ROOT = 61,
+    IK_FOOT_L = 62,
+    IK_FOOT_R = 63,
+    IK_HAND_ROOT = 64,
+    IK_HAND_GUN = 65,
+    IK_HAND_L = 66,
+    IK_HAND_R = 67,
+    VB_IK_FOOT_L_OFFSET = 68,
+    VB_IK_FOOT_R_OFFSET = 69,
+    VB_RHS_IK_HAND_GUN = 70,
+    VB_LHS_IK_HAND_GUN = 71,
+    VB_RHS_IK_HAND_L = 72,
+    VB_LHS_IK_HAND_R = 73,
+    VB_IK_KNEE_TARGET_L = 74,
+    VB_IK_KNEE_TARGET_R = 75,
+    VB_CURVES = 76,
+    VB_FOOT_TARGET_L = 77,
+    VB_FOOT_TARGET_R = 78,
+    VB_IK_HAND_GUN = 79,
+    VB_HAND_R = 80,
+    VB_HAND_L = 81,
+    VB_CAMERAPOINT = 82,
+    VB_CAMERA_HAND_L = 83,
+    VB_GOGGLES_ROOT = 84,
+    VB_CAMERA_HAND_R = 85,
+    VB_CAMERA_LOWERARM_L = 86,
+    VB_LOWERARM_L = 87,
+    VB_LOWERARM_R = 88,
+};
+
+/* ---- Alternate skeleton (distinct bone count) ----
+// 23 bones (from component: Wep Body)
+enum BoneID_Alt0 : int
+{
+    ROOT = 0,
+    FIREKEY = 1,
+    SWITCH = 2,
+    HAMMER = 3,
+    CRANE = 4,
+    ROD = 5,
+    CYLINDER = 6,
+    CARTRIDGE_03 = 7,
+    CARTRIDGE_03_BULLET = 8,
+    CARTRIDGE_04 = 9,
+    CARTRIDGE_04_BULLET = 10,
+    CARTRIDGE_05 = 11,
+    CARTRIDGE_05_BULLET = 12,
+    CARTRIDGE_06 = 13,
+    CARTRIDGE_06_BULLET = 14,
+    CARTRIDGE_07 = 15,
+    CARTRIDGE_07_BULLET = 16,
+    CARTRIDGE_08 = 17,
+    CARTRIDGE_08_BULLET = 18,
+    CARTRIDGE_01 = 19,
+    CARTRIDGE_01_BULLET = 20,
+    CARTRIDGE_02 = 21,
+    CARTRIDGE_02_BULLET = 22,
+};
+*/
+
+/* ---- Alternate skeleton (distinct bone count) ----
+// 19 bones (from component: SkeletalMeshComponent0)
+enum BoneID_Alt1 : int
+{
+    SKEL_AR_02 = 0,
+    ROOT = 1,
+    MAGAZINE = 2,
+    SOCKET_MAGAZINE = 3,
+    SOCKET_MAGAZINE_END = 4,
+    BOLT = 5,
+    BOLT_END = 6,
+    SOCKET_DEFAULT = 7,
+    SOCKET_DEFAULT_END = 8,
+    SOCKET_MUZZLE = 9,
+    SOCKET_MUZZLE_END = 10,
+    SOCKET_SCOPE = 11,
+    SOCKET_SCOPE_END = 12,
+    SOCKET_LASER = 13,
+    SOCKET_LASER_END = 14,
+    SOCKET_GRIP = 15,
+    SOCKET_GRIP_END = 16,
+    SOCKET_EJECT = 17,
+    SOCKET_EJECT_END = 18,
+};
+*/
+
+/* ---- Alternate skeleton (distinct bone count) ----
+// 13 bones (from component: Wep Body)
+enum BoneID_Alt2 : int
+{
+    ROOT = 0,
+    MAGAZINE = 1,
+    MAGAZINE_SPARE = 2,
+    TRIGGER = 3,
+    SLIDESTOP = 4,
+    SLIDE = 5,
+    SOCKET_DEFAULT = 6,
+    SOCKET_SCOPE = 7,
+    SOCKET_EJECT = 8,
+    HAMMER = 9,
+    SOCKET_MUZZLE = 10,
+    SOCKET_GRIP = 11,
+    SOCKET_LASER = 12,
+};
+*/
+
+/* ---- Alternate skeleton (distinct bone count) ----
+// 11 bones (from component: Wep Body)
+enum BoneID_Alt3 : int
+{
+    ROOT = 0,
+    TRIGGER = 1,
+    MAGRELEASE02 = 2,
+    MAGRELEASE = 3,
+    DUSTCOVER = 4,
+    BOLTCATCH = 5,
+    BOLT = 6,
+    CHARGINGHANDLE = 7,
+    MAGAZINE = 8,
+    MAGAZINE_SPARE = 9,
+    SAFETY = 10,
+};
+*/
+
+/* ---- Alternate skeleton (distinct bone count) ----
+// 10 bones (from component: Wep Body)
+enum BoneID_Alt4 : int
+{
+    SKEL_AR_02 = 0,
+    ROOT = 1,
+    MAGAZINE = 2,
+    BOLT = 3,
+    MAGAZINE_SPARE = 4,
+    SAFETY = 5,
+    DUST_COVER = 6,
+    BOLT_CARRIER = 7,
+    MAG_RELEASE = 8,
+    BOLT_CATCH = 9,
+};
+*/
+
+/* ---- Alternate skeleton (distinct bone count) ----
+// 9 bones (from component: Wep Body)
+enum BoneID_Alt5 : int
+{
+    SKEL_DEAGLE = 0,
+    ROOT = 1,
+    MAGAZINE = 2,
+    SLIDE = 3,
+    SAFETY = 4,
+    HAMMER = 5,
+    TRIGGER = 6,
+    SLIDERELEASE = 7,
+    MAGAZINE_SPARE = 8,
+};
+*/
+
+/* ---- Alternate skeleton (distinct bone count) ----
+// 8 bones (from component: Wep Body)
+enum BoneID_Alt6 : int
+{
+    SKEL_AR_03_002 = 0,
+    ROOT = 1,
+    MAGAZINE = 2,
+    BOLT = 3,
+    MAGAZINE_SPARE = 4,
+    BOLT_CATCH = 5,
+    MAG_RELEASE = 6,
+    SAFETY = 7,
+};
+*/
+
+/* ---- Alternate skeleton (distinct bone count) ----
+// 7 bones (from component: Wep Body)
+enum BoneID_Alt7 : int
+{
+    SKEL_SMG_03 = 0,
+    ROOT = 1,
+    MAGAZINE = 2,
+    CHARGE = 3,
+    BOLT = 4,
+    MAGAZINE_SPARE = 5,
+    BOLTCATCH = 6,
+};
+*/
+
+/* ---- Alternate skeleton (distinct bone count) ----
+// 6 bones (from component: SKM_Target)
+enum BoneID_Alt8 : int
+{
+    TARGET = 0,
+    SUPPORT = 1,
+    PAPER01 = 2,
+    PAPER02 = 3,
+    PAPER03 = 4,
+    PAPER04 = 5,
+};
+*/
+
+/* ---- Alternate skeleton (distinct bone count) ----
+// 2 bones (from component: SkeletalMeshComponent0)
+enum BoneID_Alt9 : int
+{
+    ROOT = 0,
+    BLADE = 1,
+};
+*/

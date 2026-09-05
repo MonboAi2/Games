@@ -1,0 +1,1637 @@
+// Actor class inventory (Dumper-7)
+//
+// Every AActor-derived class with LIVE INSTANCES at dump time, with the component
+// breakdown read from a representative live instance of each class, plus scalar
+// gameplay members matched by keyword.
+//
+// This is runtime data. Classes that exist in the SDK but are never spawned do not
+// appear here - that absence is the useful part. The component list is read from live
+// pointers, so a component declared but never created won't show up.
+//
+// Components are sorted RootComponent-first, then by ascending offset.
+// 'none live on the sampled instance' is expected for AInfo-derived actors
+// (PlayerState, GameState, WorldSettings, GameSession) - they have no root component.
+//
+// NOTE: reflects game state at the moment of the dump. Inject during actual gameplay
+// (not the main menu) or most gameplay actors won't exist yet. Use
+// [Settings] SleepTimeout / DumpKey to time it.
+
+=====================================================================
+ [1] SUMMARY
+=====================================================================
+Instanced actor classes  : 98
+Total live actor objects : 5752
+Pawn classes             : 3
+PlayerController classes : 1
+State carriers           : 3
+Classes w/ skinned mesh  : 9
+
+=====================================================================
+ [2] PRIORITY CLASSES  (pawns, controllers, state carriers, skeletal actors)
+=====================================================================
+// Start here. The real gameplay pawn is almost certainly the first Pawn entry
+// with a high-bone-count skinned mesh. Note that a first-person title often has
+// several meshes on the same skeleton (first-person arms, third-person body,
+// shadow proxy) - for ESP on other actors you generally want the third-person one.
+//
+// These classes are listed HERE ONLY and are omitted from section [3].
+
+[1] Bodycam_Player_C
+    Instances  : 1
+    Parents    : BodycamWeaponCharacter -> BodycamCharacter -> Character -> Pawn -> Actor -> Object
+    Flags      : Pawn HasSkinnedMesh 
+    Components (44):
+        +0x01B8  RootComponent                      : CapsuleComponent                         [SCENE] <ROOT>
+                  -> live object: CollisionCylinder
+        +0x0178  InputComponent                     : BodycamInputComponent                    [LOGIC]
+                  -> live object: PawnInputComponent0
+        +0x0328  Mesh                               : SkeletalMeshComponent                    [SKINNED, 89 bones]
+                  -> live object: CharacterMesh0
+        +0x0330  CharacterMovement                  : CharacterMovementComponent               [LOGIC]
+                  -> live object: CharMoveComp
+        +0x0338  CapsuleComponent                   : CapsuleComponent                         [SCENE]
+                  -> live object: CollisionCylinder
+        +0x0658  AbilitySystemComponent             : BodycamAbilitySystemComponent            [LOGIC]
+        +0x0660  PawnExtComponent                   : PawnExtensionComponent                   [LOGIC]
+                  -> live object: PawnExtensionComponent
+        +0x0688  EquipmentManagerComponent          : BodycamEquipmentManagerComponent         [LOGIC]
+        +0x0718  HUDFriendDotWidget                 : BodycamWidgetComponent                   [SCENE]
+        +0x0720  PhysicsControl                     : PhysicsControlComponent                  [SCENE]
+        +0x0728  HMS_Interface                      : HMS_InterfaceComponent                   [LOGIC]
+        +0x0730  AIPerceptionStimuliSource          : AIPerceptionStimuliSourceComponent       [LOGIC]
+        +0x0738  HandSocket                         : SceneComponent                           [SCENE]
+        +0x0740  WW_SurvivorStatus                  : WW_SurvivorStatus_C                      [LOGIC]
+                  ** +0x00F0  InitialHealth                : float            (0x4 bytes)  [on component]
+                  ** +0x0120  Health                       : double           (0x8 bytes)  [on component]
+                  ** +0x0150  HealthTresholdMax            : double           (0x8 bytes)  [on component]
+                  ** +0x0159  Allow_Thirst_Decrease        : bool             (0x1 bytes)  [on component]
+                  ** +0x015A  Allow_health_Increase        : bool             (0x1 bytes)  [on component]
+                  ** +0x0170  Stamina                      : double           (0x8 bytes)  [on component]
+                  ** +0x01B0  HealthMax                    : double           (0x8 bytes)  [on component]
+                  ** +0x01B8  Invincible                   : bool             (0x1 bytes)  [on component]
+        +0x0748  WW_RagdollSystem                   : WW_RagdollSystem_C                       [LOGIC]
+        +0x0758  MantleTimeline                     : TimelineComponent                        [LOGIC]
+        +0x0C40  PerkController                     : SkeletalMeshComponent                    [SKINNED]
+        +0x0C48  Goggles                            : SkeletalMeshComponent                    [SKINNED]
+        +0x0C50  WindSounds                         : AudioComponent                           [SCENE]
+        +0x0C58  AudioListener                      : SceneComponent                           [SCENE]
+        +0x0C60  BppfDOFDriver                      : BppfDOFDriverComponent                   [LOGIC]
+        +0x0C68  BodycamInteractor                  : BodycamInteractorComponent               [LOGIC]
+        +0x0C70  BodycamRecoilAnimation             : BodycamRecoilAnimationComponent          [LOGIC]
+        +0x0C78  HeroComponent                      : BodycamHeroComponent                     [LOGIC]
+        +0x0C80  BreathingSounds                    : AudioComponent                           [SCENE]
+        +0x0C88  AC_BodycamCamera                   : AC_BodycamCamera_C                       [LOGIC]
+        +0x0C90  FoleySounds                        : AudioComponent                           [SCENE]
+        +0x0C98  BP_InventoryComponent              : BP_InventoryComponent_C                  [LOGIC]
+        +0x0CA0  DeadView                           : CameraComponent                          [SCENE]
+        +0x0CA8  Shadow                             : SkeletalMeshComponent                    [SKINNED, 89 bones]
+        +0x0CB0  Arms                               : SkeletalMeshComponent                    [SKINNED, 89 bones]
+        +0x0CB8  BafCameraAnimation                 : BafCameraAnimation                       [LOGIC]
+        +0x0CC0  AC_BodycamAnimationComponent       : AC_BodycamAnimationComponent_C           [LOGIC]
+        +0x0CC8  Spring_Camera                      : SpringArmComponent                       [SCENE]
+                  -> live object: Spring Camera
+        +0x0CD0  ScreenDroplets                     : PostProcessComponent                     [SCENE]
+        +0x0CD8  SpringArms                         : SpringArmComponent                       [SCENE]
+        +0x0CE0  Censor_Face                        : StaticMeshComponent                      [STATIC]
+                  -> live object: Censor Face
+        +0x0CE8  SpringArmBodycamBorders            : SpringArmComponent                       [SCENE]
+        +0x0CF0  Camera                             : CameraComponent                          [SCENE]
+        +0x0CF8  BodycamBorders                     : StaticMeshComponent                      [STATIC]
+        +0x0D08  Low                                : TimelineComponent                        [LOGIC]
+        +0x0D18  Timeline_1                         : TimelineComponent                        [LOGIC]
+        +0x0D28  Timeline_0                         : TimelineComponent                        [LOGIC]
+        +0x0D38  Timeline                           : TimelineComponent                        [LOGIC]
+    Gameplay members (11 strong, 18 weak) - offsets are exact, relevance is a guess:
+        ** +0x0908  CurrentMovementSettings.WalkSpeed_40_9AD737B14B8BC378F924E890E018B5B0 : float            (0x4 bytes)
+        ** +0x090C  CurrentMovementSettings.RunSpeed_39_7397773A4A46B563F765429BD6A2DDE8 : float            (0x4 bytes)
+        ** +0x0910  CurrentMovementSettings.SprintSpeed_38_6123675A40931BD70D4CF18D9A2A1C4C : float            (0x4 bytes)
+        -- weak matches below --
+           +0x0760  MovementState                      : enum class EALS_MovementState (0x1 bytes)
+           +0x0761  PrevMovementState                  : enum class EALS_MovementState (0x1 bytes)
+           +0x07D8  Speed                              : double           (0x8 bytes)
+           +0x07E0  MovementInputAmount                : double           (0x8 bytes)
+           +0x0B10  OverlayState                       : enum class EALS_OverlayState (0x1 bytes)
+           +0x0B40  ThirdPersonFOV                     : double           (0x8 bytes)
+           +0x0B48  FirstPersonFOV                     : double           (0x8 bytes)
+           +0x0B78  Overlay_State__Client_             : enum class EALS_OverlayState (0x1 bytes)
+           +0x0BB0  RagdollState                       : bool             (0x1 bytes)
+           +0x0FD8  Current_Control_Rotation_Interp_Speed : double           (0x8 bytes)
+           +0x0FE0  Aiming                             : bool             (0x1 bytes)
+           +0x1E18  AimingRotationSpeed                : double           (0x8 bytes)
+           +0x1E20  AimingBloked                       : bool             (0x1 bytes)
+           +0x1EB2  AllowItemDetection                 : bool             (0x1 bytes)
+           +0x1F20  LightAiming                        : bool             (0x1 bytes)
+           +0x1F28  LightAimingHeight                  : double           (0x8 bytes)
+           +0x1FF4  bDesireAiming                      : bool             (0x1 bytes)
+           +0x1FF5  bDesireSprinting                   : bool             (0x1 bytes)
+
+[2] BP_LoadoutShowcaseCharacter_C
+    Instances  : 1
+    Parents    : Character -> Pawn -> Actor -> Object
+    Flags      : Pawn HasSkinnedMesh 
+    Components (9):
+        +0x01B8  RootComponent                      : CapsuleComponent                         [SCENE] <ROOT>
+                  -> live object: CollisionCylinder
+        +0x0328  Mesh                               : SkeletalMeshComponent                    [SKINNED]
+                  -> live object: CharacterMesh0
+        +0x0330  CharacterMovement                  : CharacterMovementComponent               [LOGIC]
+                  -> live object: CharMoveComp
+        +0x0338  CapsuleComponent                   : CapsuleComponent                         [SCENE]
+                  -> live object: CollisionCylinder
+        +0x0658  SpotLight                          : SpotLightComponent                       [SCENE]
+        +0x0660  PointLight2                        : PointLightComponent                      [SCENE]
+        +0x0668  PointLight1                        : PointLightComponent                      [SCENE]
+        +0x0670  CineCamera                         : CineCameraComponent                      [SCENE]
+        +0x0678  Censor_Face                        : StaticMeshComponent                      [STATIC]
+                  -> live object: Censor Face
+
+[3] SpectatorPawn
+    Instances  : 1
+    Parents    : DefaultPawn -> Pawn -> Actor -> Object
+    Flags      : Pawn 
+    Components (4):
+        +0x01B8  RootComponent                      : SphereComponent                          [SCENE] <ROOT>
+                  -> live object: CollisionComponent0
+        +0x0178  InputComponent                     : BodycamInputComponent                    [LOGIC]
+                  -> live object: PawnInputComponent0
+        +0x0330  MovementComponent                  : SpectatorPawnMovement                    [LOGIC]
+                  -> live object: MovementComponent0
+        +0x0338  CollisionComponent                 : SphereComponent                          [SCENE]
+                  -> live object: CollisionComponent0
+    Gameplay members (0 strong, 1 weak) - offsets are exact, relevance is a guess:
+           +0x0348  bAddDefaultMovementBindings        : uint8            (0x1 bytes)
+
+[4] PC_Bodycam_C
+    Instances  : 1
+    Parents    : BodycamPlayerController -> HMS_PlayerController -> PlayerController -> Controller -> Actor -> Object
+    Flags      : PlayerController 
+    Components (6):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: TransformComponent0
+        +0x0178  InputComponent                     : BodycamInputComponent                    [LOGIC]
+                  -> live object: PC_InputComponent0
+        +0x0300  TransformComponent                 : SceneComponent                           [SCENE]
+                  -> live object: TransformComponent0
+        +0x08A8  SpawnSoundComponent                : BodycamSpawnSoundComponent               [LOGIC]
+        +0x08C8  Timeline                           : TimelineComponent                        [LOGIC]
+        +0x08D8  BP_LoadoutSaveManagerComponent     : BP_LoadoutSaveManagerComponent_C         [LOGIC]
+    Gameplay members (0 strong, 5 weak) - offsets are exact, relevance is a guess:
+           +0x0984  FriendCount                        : int32            (0x4 bytes)
+           +0x0998  CurrentPlaytime                    : double           (0x8 bytes)
+           +0x09A0  MinPlaytimeToAccessReward          : double           (0x8 bytes)
+           +0x09AA  IsDeadDuringMatch                  : bool             (0x1 bytes)
+           +0x09AC  RoundKills                         : int32            (0x4 bytes)
+
+[5] GT_Bodycam_C
+    Instances  : 1
+    Parents    : BodycamGameState -> GameStateBase -> Info -> Actor -> Object
+    Flags      : StateCarrier 
+    Components (6):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x0388  WarmupCountdown                    : CountdownComponent                       [LOGIC]
+        +0x0390  WaitingForPlayerCountdown          : CountdownComponent                       [LOGIC]
+        +0x0428  WeatherManagerComponent            : WeatherManagerComponent_C                [LOGIC]
+        +0x0430  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+        +0x0678  SlomoCurve                         : TimelineComponent                        [LOGIC]
+    Gameplay members (0 strong, 15 weak) - offsets are exact, relevance is a guess:
+           +0x0380  CurrentPlayers                     : uint8            (0x1 bytes)
+           +0x0381  MaxPlayers                         : uint8            (0x1 bytes)
+           +0x03B8  CurrentRound                       : int32            (0x4 bytes)
+           +0x03E0  OverridenScoreLimit                : int32            (0x4 bytes)
+           +0x03E8  CounterObjectiveTeam               : int32            (0x4 bytes)
+           +0x0410  CurrentPhaseEndTime                : float            (0x4 bytes)
+           +0x05A8  MaxMapToVote                       : int32            (0x4 bytes)
+           +0x05AC  VoteMapTimerMax                    : int32            (0x4 bytes)
+           +0x05EC  bCalculatedRanks                   : bool             (0x1 bytes)
+           +0x05F0  ScoreMinReissadGain                : double           (0x8 bytes)
+           +0x05F8  ScoreMaxReissadGain                : double           (0x8 bytes)
+           +0x0690  TimeCount                          : double           (0x8 bytes)
+           +0x0830  TimerCurrent                       : double           (0x8 bytes)
+           +0x0838  IntroTimerCurrent                  : double           (0x8 bytes)
+           +0x0848  Team_Winning_Current_Round         : enum class E_Team (0x1 bytes)
+
+[6] PS_Bodycam_C
+    Instances  : 1
+    Parents    : BodycamPlayerState -> PlayerState -> Info -> Actor -> Object
+    Flags      : StateCarrier 
+    Components (4):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x0430  CachedSynthComponent               : BP_VoiceSynthComponent_C                 [SCENE]
+                  -> live object: BP_VoiceSynthComponent
+        +0x0440  BP_VoiceSynthComponent             : BP_VoiceSynthComponent_C                 [SCENE]
+        +0x0448  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+    Gameplay members (0 strong, 6 weak) - offsets are exact, relevance is a guess:
+           +0x038C  Kill                               : int32            (0x4 bytes)
+           +0x0390  Death                              : int32            (0x4 bytes)
+           +0x0395  bIsSpectatorState                  : bool             (0x1 bytes)
+           +0x03F8  GadgetExpirationTime               : float            (0x4 bytes)
+           +0x0400  LastRespawnTime                    : float            (0x4 bytes)
+           +0x0408  SpawnCount                         : int32            (0x4 bytes)
+
+[7] GM_Bodycam_C
+    Instances  : 1
+    Parents    : BodycamLobbyGameMode -> HMS_GameMode -> GameModeBase -> Info -> Actor -> Object
+    Flags      : StateCarrier 
+    Components (3):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x0578  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+        +0x0590  WeatherManagerComponent            : WeatherManagerComponent_C                [LOGIC]
+    Gameplay members (0 strong, 4 weak) - offsets are exact, relevance is a guess:
+           +0x0374  HMS_CurrentPreviousPlayersReconnectTimeout : float            (0x4 bytes)
+           +0x0534  HMS_NumPlayersExpectedToReconnect  : int32            (0x4 bytes)
+           +0x05B8  MaxDeadBodies                      : int32            (0x4 bytes)
+           +0x062C  BotsRpointsDivider                 : int32            (0x4 bytes)
+
+[8] Knife_C
+    Instances  : 1
+    Parents    : BodycamEquippableItemActor -> Actor -> Object
+    Flags      : HasSkinnedMesh 
+    Components (8):
+        +0x01B8  RootComponent                      : SkeletalMeshComponent                    [SKINNED, 2 bones] <ROOT>
+                  -> live object: Wep Body
+        +0x02E0  HMS_Interface                      : HMS_InterfaceComponent                   [LOGIC]
+        +0x02E8  BP_ItemSkinBuilderComponent        : BP_ItemSkinBuilderComponent_C            [LOGIC]
+        +0x02F0  BodycamInteractable                : BodycamInteractableComponent             [LOGIC]
+        +0x02F8  Wep_Body                           : SkeletalMeshComponent                    [SKINNED, 2 bones]
+                  -> live object: Wep Body
+        +0x03C0  AC_Projectile                      : AC_Projectile_C                          [LOGIC]
+                  ** +0x00A0  SavedMaxDamage               : double           (0x8 bytes)  [on component]
+        +0x03C8  ProjectileMovement                 : ProjectileMovementComponent              [LOGIC]
+        +0x03D0  RotatingMovement                   : RotatingMovementComponent                [LOGIC]
+    Gameplay members (3 strong, 4 weak) - offsets are exact, relevance is a guess:
+        ** +0x04E8  Damage                             : double           (0x8 bytes)
+        ** +0x04F8  CloseRangeAttackDamage             : double           (0x8 bytes)
+        -- weak matches below --
+           +0x04D8  AimAssistMaxRange                  : double           (0x8 bytes)
+           +0x04E0  MinAbsorbance                      : double           (0x8 bytes)
+           +0x0520  bIsAiming                          : bool             (0x1 bytes)
+           +0x0528  CooldownResetPercentage            : double           (0x8 bytes)
+
+[9] G67_C
+    Instances  : 1
+    Parents    : BodycamEquippableItemActor -> Actor -> Object
+    Flags      : HasSkinnedMesh 
+    Components (8):
+        +0x01B8  RootComponent                      : SkeletalMeshComponent                    [SKINNED, 6 bones] <ROOT>
+                  -> live object: Wep Body
+        +0x02E0  HMS_Interface                      : HMS_InterfaceComponent                   [LOGIC]
+        +0x02E8  BP_ItemSkinBuilderComponent        : BP_ItemSkinBuilderComponent_C            [LOGIC]
+        +0x02F0  BodycamInteractable                : BodycamInteractableComponent             [LOGIC]
+        +0x02F8  Wep_Body                           : SkeletalMeshComponent                    [SKINNED, 6 bones]
+                  -> live object: Wep Body
+        +0x03C0  AC_Projectile                      : AC_Projectile_C                          [LOGIC]
+                  ** +0x00A0  SavedMaxDamage               : double           (0x8 bytes)  [on component]
+        +0x03C8  SphereHIT                          : SphereComponent                          [SCENE]
+        +0x0488  AC_Detonation                      : AC_Detonation_C                          [LOGIC]
+    Gameplay members (1 strong, 3 weak) - offsets are exact, relevance is a guess:
+        -- weak matches below --
+           +0x0468  MaxThrowDistance                   : double           (0x8 bytes)
+           +0x0470  OverhandLaunchSpeed                : double           (0x8 bytes)
+           +0x0478  UnderhandLaunchSpeed               : double           (0x8 bytes)
+
+[10] WEP_C
+    Instances  : 33
+    Parents    : BodycamEquippableItemActor -> Actor -> Object
+    Flags      : HasSkinnedMesh 
+    Components (10):
+        +0x01B8  RootComponent                      : SkeletalMeshComponent                    [SKINNED, 7 bones] <ROOT>
+                  -> live object: Wep Body
+        +0x02E0  HMS_Interface                      : HMS_InterfaceComponent                   [LOGIC]
+        +0x02E8  BP_ItemSkinBuilderComponent        : BP_ItemSkinBuilderComponent_C            [LOGIC]
+        +0x02F0  BodycamInteractable                : BodycamInteractableComponent             [LOGIC]
+        +0x02F8  Wep_Body                           : SkeletalMeshComponent                    [SKINNED, 7 bones]
+                  -> live object: Wep Body
+        +0x03C0  PointLight                         : PointLightComponent                      [SCENE]
+        +0x03C8  Scene                              : SceneComponent                           [SCENE]
+        +0x03D0  AC_Detonation                      : AC_Detonation_C                          [LOGIC]
+        +0x03D8  MagazineManager                    : MagazineManagerComponent                 [LOGIC]
+        +0x0408  CurrentAimpointTarget              : SkeletalMeshComponent                    [SKINNED, 7 bones]
+                  -> live object: Wep Body
+    Gameplay members (0 strong, 4 weak) - offsets are exact, relevance is a guess:
+           +0x03E0  Shot_Count_Arms                    : double           (0x8 bytes)
+           +0x0420  CurrentOpticIndex                  : int32            (0x4 bytes)
+           +0x0448  bCurrentAimpointIsOptic            : bool             (0x1 bytes)
+           +0x0488  LaserDefaultPoseOffsetX            : float            (0x4 bytes)
+
+[11] BP_Tablet_C
+    Instances  : 1
+    Parents    : BodycamTablet -> Actor -> Object
+    Flags      : HasSkinnedMesh 
+    Components (7):
+        +0x01B8  RootComponent                      : SkeletalMeshComponent                    [SKINNED, 6 bones] <ROOT>
+                  -> live object: Tablet
+        +0x02F8  ScreenTranslucent                  : StaticMeshComponent                      [STATIC]
+        +0x0300  WidgetCursor                       : WidgetComponent                          [SCENE]
+        +0x0308  Widget                             : WidgetComponent                          [SCENE]
+        +0x0310  WidgetInteraction                  : WidgetInteractionComponent               [SCENE]
+        +0x0318  PostProcess_MeteringMaskOverride   : PostProcessComponent                     [SCENE]
+        +0x0320  Tablet                             : SkeletalMeshComponent                    [SKINNED, 6 bones]
+    Gameplay members (0 strong, 4 weak) - offsets are exact, relevance is a guess:
+           +0x02C0  CursorSensitivity                  : float            (0x4 bytes)
+           +0x02C4  MaxRotationAngle                   : float            (0x4 bytes)
+           +0x0340  Cursor_Mouse_Sensitivity           : double           (0x8 bytes)
+           +0x0348  Cursor_Gamepad_Sensitivity         : double           (0x8 bytes)
+
+[12] BP_PerkProxy_C
+    Instances  : 1
+    Parents    : BodycamEquippableItemActor -> Actor -> Object
+    Flags      : HasSkinnedMesh 
+    Components (6):
+        +0x01B8  RootComponent                      : SkeletalMeshComponent                    [SKINNED, 6 bones] <ROOT>
+                  -> live object: Wep Body
+        +0x02E0  HMS_Interface                      : HMS_InterfaceComponent                   [LOGIC]
+        +0x02E8  BP_ItemSkinBuilderComponent        : BP_ItemSkinBuilderComponent_C            [LOGIC]
+        +0x02F0  BodycamInteractable                : BodycamInteractableComponent             [LOGIC]
+        +0x02F8  Wep_Body                           : SkeletalMeshComponent                    [SKINNED, 6 bones]
+                  -> live object: Wep Body
+        +0x03C0  TextRender                         : TextRenderComponent                      [SCENE]
+    Gameplay members (0 strong, 1 weak) - offsets are exact, relevance is a guess:
+           +0x0408  RemainingCooldown                  : double           (0x8 bytes)
+
+[13] BP_LaneDivider_C
+    Instances  : 5
+    Parents    : Actor -> Object
+    Flags      : HasSkinnedMesh 
+    Components (11):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02B0  SC_LaneDividerTargetMoving         : AudioComponent                           [SCENE]
+        +0x02B8  SKM_Target                         : SkeletalMeshComponent                    [SKINNED, 6 bones]
+        +0x02C0  SM_Roof_Target_Rail_Tracks_01d3    : StaticMeshComponent                      [STATIC]
+        +0x02C8  SM_Roof_Target_Rail_Tracks_01d2    : StaticMeshComponent                      [STATIC]
+        +0x02D0  SM_Roof_Target_Rail_Tracks_01d1    : StaticMeshComponent                      [STATIC]
+        +0x02D8  SM_Roof_Target_Rail_Tracks_01d     : StaticMeshComponent                      [STATIC]
+        +0x02E0  BodycamInteractable                : BodycamInteractableComponent             [LOGIC]
+        +0x02E8  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+        +0x02F8  Timeline_0                         : TimelineComponent                        [LOGIC]
+        +0x0308  Timeline                           : TimelineComponent                        [LOGIC]
+
+[14] SkeletalMeshActor
+    Instances  : 14
+    Parents    : Actor -> Object
+    Flags      : HasSkinnedMesh 
+    Components (2):
+        +0x01B8  RootComponent                      : SkeletalMeshComponent                    [SKINNED, 2 bones] <ROOT>
+                  -> live object: SkeletalMeshComponent0
+        +0x02B0  SkeletalMeshComponent              : SkeletalMeshComponent                    [SKINNED, 2 bones]
+                  -> live object: SkeletalMeshComponent0
+
+=====================================================================
+ [3] REMAINING CLASSES  (84 classes, by instance count)
+=====================================================================
+// Priority classes from section [2] are not repeated here.
+
+[1] StaticMeshActor
+    Instances  : 4740
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (2):
+        +0x01B8  RootComponent                      : StaticMeshComponent                      [STATIC] <ROOT>
+                  -> live object: StaticMeshComponent0
+        +0x02A8  StaticMeshComponent                : StaticMeshComponent                      [STATIC]
+                  -> live object: StaticMeshComponent0
+    Gameplay members (0 strong, 1 weak) - offsets are exact, relevance is a guess:
+           +0x02B1  StaticMeshPhysicsReplicationMode   : enum class EPhysicsReplicationMode (0x1 bytes)
+
+[2] DecalActor
+    Instances  : 484
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (2):
+        +0x01B8  RootComponent                      : DecalComponent                           [SCENE] <ROOT>
+                  -> live object: NewDecalComponent
+        +0x02A8  Decal                              : DecalComponent                           [SCENE]
+                  -> live object: NewDecalComponent
+
+[3] Actor
+    Instances  : 62
+    Parents    : Object
+    Flags      : -
+    Components : none live on the sampled instance
+
+[4] Target_C
+    Instances  : 36
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (9):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02B0  TragetHeadShot                     : StaticMeshComponent                      [STATIC]
+        +0x02B8  Target                             : StaticMeshComponent                      [STATIC]
+        +0x02C0  SpotLight                          : SpotLightComponent                       [SCENE]
+        +0x02C8  SM_Spotlight_01a                   : StaticMeshComponent                      [STATIC]
+        +0x02D0  Decal                              : DecalComponent                           [SCENE]
+        +0x02D8  SM_Target_Separeted_SM_Target_01b  : StaticMeshComponent                      [STATIC]
+        +0x02E0  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+        +0x02F0  InitTarget                         : TimelineComponent                        [LOGIC]
+    Gameplay members (0 strong, 4 weak) - offsets are exact, relevance is a guess:
+           +0x030C  ResetDurationMin                   : float            (0x4 bytes)
+           +0x0320  ResetDurationMax                   : float            (0x4 bytes)
+           +0x0330  RandomMin                          : double           (0x8 bytes)
+           +0x0338  RandomMax                          : double           (0x8 bytes)
+
+[5] BP_SmallPopper2_C
+    Instances  : 28
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (4):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02B0  SM_PopperBig                       : StaticMeshComponent                      [STATIC]
+        +0x02B8  PhysicsConstraint                  : PhysicsConstraintComponent               [SCENE]
+        +0x02C0  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[6] Flashlight_C
+    Instances  : 28
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (5):
+        +0x01B8  RootComponent                      : StaticMeshComponent                      [STATIC] <ROOT>
+                  -> live object: StaticMesh
+        +0x02B0  StaticMesh                         : StaticMeshComponent                      [STATIC]
+        +0x02D0  MuzzleLight                        : SpotLightComponent                       [SCENE]
+        +0x02D8  LightSphere                        : StaticMeshComponent                      [STATIC]
+        +0x02E0  MainLight                          : SpotLightComponent                       [SCENE]
+    Gameplay members (0 strong, 2 weak) - offsets are exact, relevance is a guess:
+           +0x02B8  bDefaultEnableCollisions           : bool             (0x1 bytes)
+           +0x0310  bFlashlightStateChanged            : bool             (0x1 bytes)
+
+[7] BP_SmallPopper1_C
+    Instances  : 19
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (4):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02B0  SM_PopperBig                       : StaticMeshComponent                      [STATIC]
+        +0x02B8  PhysicsConstraint                  : PhysicsConstraintComponent               [SCENE]
+        +0x02C0  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[8] TV_C
+    Instances  : 19
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (4):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02B0  Widget                             : WidgetComponent                          [SCENE]
+        +0x02B8  SM_TVSample                        : StaticMeshComponent                      [STATIC]
+        +0x02C0  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[9] AmbientSound
+    Instances  : 16
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (2):
+        +0x01B8  RootComponent                      : AudioComponent                           [SCENE] <ROOT>
+                  -> live object: AudioComponent0
+        +0x02A8  AudioComponent                     : AudioComponent                           [SCENE]
+                  -> live object: AudioComponent0
+
+[10] BP_Hanging_Light_01b_C
+    Instances  : 16
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (6):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02A8  LightSwitchComponent               : LightSwitchComponent_C                   [LOGIC]
+        +0x02B0  SpotLight                          : SpotLightComponent                       [SCENE]
+        +0x02B8  SM_CeilingLight03a1                : StaticMeshComponent                      [STATIC]
+        +0x02C0  SM_CeilingLight03a                 : StaticMeshComponent                      [STATIC]
+        +0x02C8  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[11] AudioVolume
+    Instances  : 13
+    Parents    : Volume -> Brush -> Actor -> Object
+    Flags      : -
+    Components (2):
+        +0x01B8  RootComponent                      : BrushComponent                           [SCENE] <ROOT>
+                  -> live object: BrushComponent0
+        +0x02C0  BrushComponent                     : BrushComponent                           [SCENE]
+                  -> live object: BrushComponent0
+
+[12] WorldSettings
+    Instances  : 13
+    Parents    : Info -> Actor -> Object
+    Flags      : -
+    Components : none live on the sampled instance
+
+[13] BP_CollectionLightSwitcher_C
+    Instances  : 12
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (5):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02B0  Billboard                          : BillboardComponent                       [SCENE]
+        +0x02B8  Box                                : BoxComponent                             [SCENE]
+        +0x02C0  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+        +0x02D0  Timeline                           : TimelineComponent                        [LOGIC]
+
+[14] BP_Target2_Dynamic_master_C
+    Instances  : 12
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (8):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02A8  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+        +0x02B8  SpotLight                          : SpotLightComponent                       [SCENE]
+        +0x02C0  SM_WorkingLightLamp                : StaticMeshComponent                      [STATIC]
+        +0x02C8  SM_TargetSystemHolder              : StaticMeshComponent                      [STATIC]
+        +0x02D0  SM_Target                          : StaticMeshComponent                      [STATIC]
+        +0x02D8  SM_TargetSystemBox                 : StaticMeshComponent                      [STATIC]
+        +0x02E8  Timeline_0                         : TimelineComponent                        [LOGIC]
+
+[15] SpotLight
+    Instances  : 12
+    Parents    : Light -> Actor -> Object
+    Flags      : -
+    Components (3):
+        +0x01B8  RootComponent                      : SpotLightComponent                       [SCENE] <ROOT>
+                  -> live object: LightComponent0
+        +0x02A8  LightComponent                     : SpotLightComponent                       [SCENE]
+                  -> live object: LightComponent0
+        +0x02B8  SpotLightComponent                 : SpotLightComponent                       [SCENE]
+                  -> live object: LightComponent0
+
+[16] BP_SmallPopper4_C
+    Instances  : 10
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (5):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02B0  SM_PopperBig                       : StaticMeshComponent                      [STATIC]
+        +0x02B8  PhysicsConstraint                  : PhysicsConstraintComponent               [SCENE]
+        +0x02C0  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+        +0x02D0  SM_TargetPopper_Base               : StaticMeshComponent                      [STATIC]
+
+[17] CineCameraActor
+    Instances  : 9
+    Parents    : CameraActor -> Actor -> Object
+    Flags      : -
+    Components (3):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: SceneComponent
+        +0x02B0  CameraComponent                    : CineCameraComponent                      [SCENE]
+        +0x02B8  SceneComponent                     : SceneComponent                           [SCENE]
+    Gameplay members (0 strong, 1 weak) - offsets are exact, relevance is a guess:
+           +0x02C8  FOVAngle                           : float            (0x4 bytes)
+
+[18] BP_Whiteboad_C
+    Instances  : 8
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (5):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02A8  SM_WhiteBoard_01c                  : StaticMeshComponent                      [STATIC]
+        +0x02B0  SM_WhiteBoard_01b                  : StaticMeshComponent                      [STATIC]
+        +0x02B8  Decal                              : DecalComponent                           [SCENE]
+        +0x02C0  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[19] BlockingVolume
+    Instances  : 8
+    Parents    : Volume -> Brush -> Actor -> Object
+    Flags      : -
+    Components (2):
+        +0x01B8  RootComponent                      : BrushComponent                           [SCENE] <ROOT>
+                  -> live object: BrushComponent0
+        +0x02C0  BrushComponent                     : BrushComponent                           [SCENE]
+                  -> live object: BrushComponent0
+
+[20] InstancedFoliageActor
+    Instances  : 8
+    Parents    : ISMPartitionActor -> PartitionActor -> Actor -> Object
+    Flags      : -
+    Components (1):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: RootComponent0
+
+[21] BP_Door_01a_C
+    Instances  : 7
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (9):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02A8  SM_Metal_Door_01_split_glass_wire  : StaticMeshComponent                      [STATIC]
+        +0x02B0  SM_Metal_Door_01b_split_glass      : StaticMeshComponent                      [STATIC]
+        +0x02B8  SM_Metal_Door_01b_split_glass_wire : StaticMeshComponent                      [STATIC]
+        +0x02C0  SM_Metal_Door_01_split_glass       : StaticMeshComponent                      [STATIC]
+        +0x02C8  SM_Metal_Door_01b_split            : StaticMeshComponent                      [STATIC]
+        +0x02D0  SM_Metal_Door_01a_split            : StaticMeshComponent                      [STATIC]
+        +0x02D8  F                                  : StaticMeshComponent                      [STATIC]
+        +0x02E0  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[22] BP_Security_Camera_01a_C
+    Instances  : 7
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (5):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02A8  SM_Security_Camera_01c             : StaticMeshComponent                      [STATIC]
+        +0x02B0  SM_Security_Camera_01b             : StaticMeshComponent                      [STATIC]
+        +0x02B8  SM_Security_Camera_01a             : StaticMeshComponent                      [STATIC]
+        +0x02C0  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[23] BP_Target2_Dynamic_Child1_C
+    Instances  : 7
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (8):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02A8  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+        +0x02B8  SpotLight                          : SpotLightComponent                       [SCENE]
+        +0x02C0  SM_WorkingLightLamp                : StaticMeshComponent                      [STATIC]
+        +0x02C8  SM_TargetSystemHolder              : StaticMeshComponent                      [STATIC]
+        +0x02D0  SM_Target                          : StaticMeshComponent                      [STATIC]
+        +0x02D8  SM_TargetSystemBox                 : StaticMeshComponent                      [STATIC]
+        +0x02E8  Timeline_0                         : TimelineComponent                        [LOGIC]
+
+[24] BP_SmallPopper3_C
+    Instances  : 6
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (5):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02B0  SM_PopperBig                       : StaticMeshComponent                      [STATIC]
+        +0x02B8  PhysicsConstraint                  : PhysicsConstraintComponent               [SCENE]
+        +0x02C0  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+        +0x02D0  SM_TargetPopper_Base               : StaticMeshComponent                      [STATIC]
+
+[25] BP_Decal_FloorDirt_02b_C
+    Instances  : 5
+    Parents    : DecalActor -> Actor -> Object
+    Flags      : -
+    Components (2):
+        +0x01B8  RootComponent                      : DecalComponent                           [SCENE] <ROOT>
+                  -> live object: NewDecalComponent
+        +0x02A8  Decal                              : DecalComponent                           [SCENE]
+                  -> live object: NewDecalComponent
+
+[26] BP_Door_01b_C
+    Instances  : 5
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (4):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02A8  SM_Metal_Door_01a                  : StaticMeshComponent                      [STATIC]
+        +0x02B0  SM_Metal_Door_Frame_Single_01a     : StaticMeshComponent                      [STATIC]
+        +0x02B8  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[27] RectLight
+    Instances  : 5
+    Parents    : Light -> Actor -> Object
+    Flags      : -
+    Components (3):
+        +0x01B8  RootComponent                      : RectLightComponent                       [SCENE] <ROOT>
+                  -> live object: LightComponent0
+        +0x02A8  LightComponent                     : RectLightComponent                       [SCENE]
+                  -> live object: LightComponent0
+        +0x02B8  RectLightComponent                 : RectLightComponent                       [SCENE]
+                  -> live object: LightComponent0
+
+[28] BP_Emergency_Light_01a_C
+    Instances  : 4
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (5):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02A8  SM_Emergency_Light_01_split_glass  : StaticMeshComponent                      [STATIC]
+        +0x02B0  PointLight                         : PointLightComponent                      [SCENE]
+        +0x02B8  SM_Emergency_Light_01a_split       : StaticMeshComponent                      [STATIC]
+        +0x02C0  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[29] BP_PoppersHolder_master1_C
+    Instances  : 4
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (7):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02A8  BP_SmallPopper5                    : ChildActorComponent                      [SCENE]
+        +0x02B0  BP_SmallPopper4                    : ChildActorComponent                      [SCENE]
+        +0x02B8  BP_SmallPopper3                    : ChildActorComponent                      [SCENE]
+        +0x02C0  BP_SmallPopper2                    : ChildActorComponent                      [SCENE]
+        +0x02C8  SM_Target_DuelTreeStatic           : StaticMeshComponent                      [STATIC]
+        +0x02D0  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[30] PointLight
+    Instances  : 4
+    Parents    : Light -> Actor -> Object
+    Flags      : -
+    Components (3):
+        +0x01B8  RootComponent                      : PointLightComponent                      [SCENE] <ROOT>
+                  -> live object: LightComponent0
+        +0x02A8  LightComponent                     : PointLightComponent                      [SCENE]
+                  -> live object: LightComponent0
+        +0x02B8  PointLightComponent                : PointLightComponent                      [SCENE]
+                  -> live object: LightComponent0
+
+[31] BP_CeilingFan_C
+    Instances  : 3
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (6):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02B0  Celling_fan_Cue                    : AudioComponent                           [SCENE]
+        +0x02B8  dkg_CeilingFan_01c                 : StaticMeshComponent                      [STATIC]
+        +0x02C0  dkg_CeilingFan_01b                 : StaticMeshComponent                      [STATIC]
+        +0x02C8  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+        +0x02D8  Timeline_0                         : TimelineComponent                        [LOGIC]
+
+[32] BP_Door_01c_C
+    Instances  : 3
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (6):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02A8  SM_Metal_Door_01a_split_glass_wire1 : StaticMeshComponent                      [STATIC]
+        +0x02B0  SM_Metal_Door_01a_split_glass_wire : StaticMeshComponent                      [STATIC]
+        +0x02B8  SM_Metal_Door_01a_split            : StaticMeshComponent                      [STATIC]
+        +0x02C0  SM_Metal_Door_Frame_Single_01a     : StaticMeshComponent                      [STATIC]
+        +0x02C8  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[33] BP_PoppersHolder_master_C
+    Instances  : 3
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (8):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02A8  BP_SmallPopper6                    : ChildActorComponent                      [SCENE]
+        +0x02B0  BP_SmallPopper5                    : ChildActorComponent                      [SCENE]
+        +0x02B8  BP_SmallPopper4                    : ChildActorComponent                      [SCENE]
+        +0x02C0  BP_SmallPopper3                    : ChildActorComponent                      [SCENE]
+        +0x02C8  BP_SmallPopper2                    : ChildActorComponent                      [SCENE]
+        +0x02D0  SM_PoppersHolder                   : StaticMeshComponent                      [STATIC]
+        +0x02D8  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[34] BP_Projector_Lights_Lobby_C
+    Instances  : 3
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (11):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02B0  Spolight_grp                       : SceneComponent                           [SCENE]
+        +0x02B8  SpotLight_Red                      : SpotLightComponent                       [SCENE]
+        +0x02C0  SpotLight_Green                    : SpotLightComponent                       [SCENE]
+        +0x02C8  SpotLight_Blue                     : SpotLightComponent                       [SCENE]
+        +0x02D0  Audio                              : AudioComponent                           [SCENE]
+        +0x02D8  LedSphere                          : StaticMeshComponent                      [STATIC]
+        +0x02E0  SM_Projector_Set_NN_01a            : StaticMeshComponent                      [STATIC]
+        +0x02E8  MediaSound                         : MediaSoundComponent                      [SCENE]
+        +0x02F0  Widget                             : WidgetComponent                          [SCENE]
+        +0x02F8  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+    Gameplay members (0 strong, 1 weak) - offsets are exact, relevance is a guess:
+           +0x0370  ZoomPicture                        : double           (0x8 bytes)
+
+[35] BP_Security_Camera_01b_C
+    Instances  : 3
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (5):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02A8  SM_Security_Camera_01c             : StaticMeshComponent                      [STATIC]
+        +0x02B0  SM_Security_Camera_01b             : StaticMeshComponent                      [STATIC]
+        +0x02B8  SM_Security_Camera_01a             : StaticMeshComponent                      [STATIC]
+        +0x02C0  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[36] PostProcessVolume
+    Instances  : 3
+    Parents    : Volume -> Brush -> Actor -> Object
+    Flags      : -
+    Components (2):
+        +0x01B8  RootComponent                      : BrushComponent                           [SCENE] <ROOT>
+                  -> live object: BrushComponent0
+        +0x02C0  BrushComponent                     : BrushComponent                           [SCENE]
+                  -> live object: BrushComponent0
+
+[37] TargetInit_C
+    Instances  : 3
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (3):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02B0  BoxDetection                       : BoxComponent                             [SCENE]
+        +0x02B8  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+    Gameplay members (0 strong, 2 weak) - offsets are exact, relevance is a guess:
+           +0x02D0  RandomMin                          : double           (0x8 bytes)
+           +0x02D8  RandomMax                          : double           (0x8 bytes)
+
+[38] BP_Ammo_Crate_01a_C
+    Instances  : 2
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (4):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02A8  SM_Ammo_Crate_01c                  : StaticMeshComponent                      [STATIC]
+        +0x02B0  SM_Ammo_Crate_01b                  : StaticMeshComponent                      [STATIC]
+        +0x02B8  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[39] BP_ElectircalDoor_C
+    Instances  : 2
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (10):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02B0  Box                                : BoxComponent                             [SCENE]
+        +0x02B8  Audio                              : AudioComponent                           [SCENE]
+        +0x02C0  DoorClose                          : StaticMeshComponent                      [STATIC]
+        +0x02C8  DoorOpen_                          : StaticMeshComponent                      [STATIC]
+                  -> live object: DoorOpen 
+        +0x02D0  SphereConnection                   : StaticMeshComponent                      [STATIC]
+        +0x02D8  Scene                              : SceneComponent                           [SCENE]
+        +0x02E0  Door                               : StaticMeshComponent                      [STATIC]
+        +0x02E8  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+        +0x02F8  DoorOpen                           : TimelineComponent                        [LOGIC]
+
+[40] BP_Lobby_lights1_C
+    Instances  : 2
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (9):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02A8  SpotLight                          : SpotLightComponent                       [SCENE]
+        +0x02B0  S_Links_And_Modular_Chain_uc1uegjhx_lod3_Var14 : StaticMeshComponent                      [STATIC]
+        +0x02B8  S_Links_And_Modular_Chain_uc1uegjhx_lod3_Var13 : StaticMeshComponent                      [STATIC]
+        +0x02C0  SM_LightFixture001a_LightBulb001a1 : StaticMeshComponent                      [STATIC]
+        +0x02C8  SM_LightFixture001a_LightBulb001a  : StaticMeshComponent                      [STATIC]
+        +0x02D0  SM_LightFixture001a_Bar001a        : StaticMeshComponent                      [STATIC]
+        +0x02D8  SM_LightFixture001a                : StaticMeshComponent                      [STATIC]
+        +0x02E0  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[41] BP_PlateRack_C
+    Instances  : 2
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (12):
+        +0x01B8  RootComponent                      : StaticMeshComponent                      [STATIC] <ROOT>
+                  -> live object: SM_PlateRackFrame
+        +0x02A8  SpotLight                          : SpotLightComponent                       [SCENE]
+        +0x02B0  StaticMesh1                        : StaticMeshComponent                      [STATIC]
+        +0x02B8  StaticMesh                         : StaticMeshComponent                      [STATIC]
+        +0x02C0  BP_SmallPopper6                    : ChildActorComponent                      [SCENE]
+        +0x02C8  BP_SmallPopper5                    : ChildActorComponent                      [SCENE]
+        +0x02D0  BP_SmallPopper4                    : ChildActorComponent                      [SCENE]
+        +0x02D8  BP_SmallPopper3                    : ChildActorComponent                      [SCENE]
+        +0x02E0  BP_SmallPopper2                    : ChildActorComponent                      [SCENE]
+        +0x02E8  BP_SmallPopper1                    : ChildActorComponent                      [SCENE]
+        +0x02F0  SM_PlateRackBarrel                 : StaticMeshComponent                      [STATIC]
+        +0x02F8  SM_PlateRackFrame                  : StaticMeshComponent                      [STATIC]
+
+[42] BP_PoppersHolder_master3_C
+    Instances  : 2
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (6):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02B0  BP_SmallPopper5                    : ChildActorComponent                      [SCENE]
+        +0x02B8  BP_SmallPopper6                    : ChildActorComponent                      [SCENE]
+        +0x02C0  SM_HostageReactivePlate            : StaticMeshComponent                      [STATIC]
+        +0x02C8  SM_HostageReactiveBase             : StaticMeshComponent                      [STATIC]
+        +0x02D0  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[43] BP_SmallPopper5_C
+    Instances  : 2
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (4):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02B0  SM_PopperBig                       : StaticMeshComponent                      [STATIC]
+        +0x02B8  PhysicsConstraint                  : PhysicsConstraintComponent               [SCENE]
+        +0x02C0  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[44] BP_SmallPopper6_C
+    Instances  : 2
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (4):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02B0  SM_PopperBig                       : StaticMeshComponent                      [STATIC]
+        +0x02B8  PhysicsConstraint                  : PhysicsConstraintComponent               [SCENE]
+        +0x02C0  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[45] BP_SurgicalStuff_01a_C
+    Instances  : 2
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (9):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: Root
+        +0x02A8  PrefabSceneRoot                    : SceneComponent                           [SCENE]
+        +0x02B0  Root                               : SceneComponent                           [SCENE]
+        +0x02B8  StaticMeshComponent0               : StaticMeshComponent                      [STATIC]
+        +0x02C0  StaticMeshComponent5               : StaticMeshComponent                      [STATIC]
+        +0x02C8  StaticMeshComponent4               : StaticMeshComponent                      [STATIC]
+        +0x02D0  StaticMeshComponent3               : StaticMeshComponent                      [STATIC]
+        +0x02D8  StaticMeshComponent2               : StaticMeshComponent                      [STATIC]
+        +0x02E0  StaticMeshComponent1               : StaticMeshComponent                      [STATIC]
+
+[46] BP_Target2_Dynamic_Child_C
+    Instances  : 2
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (9):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02A8  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+        +0x02B8  SpotLight                          : SpotLightComponent                       [SCENE]
+        +0x02C0  SM_WorkingLightLamp                : StaticMeshComponent                      [STATIC]
+        +0x02C8  SM_TargetSystemHolder              : StaticMeshComponent                      [STATIC]
+        +0x02D0  SM_Target                          : StaticMeshComponent                      [STATIC]
+        +0x02D8  SM_TargetSystemBox                 : StaticMeshComponent                      [STATIC]
+        +0x02E8  Timeline_0                         : TimelineComponent                        [LOGIC]
+        +0x02F8  SM_TargetNoShoot                   : StaticMeshComponent                      [STATIC]
+
+[47] BP_WhirlyTarget_master_C
+    Instances  : 2
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (15):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02B0  PhysicsConstraint5                 : PhysicsConstraintComponent               [SCENE]
+        +0x02B8  SM_WhirlyTarget_05                 : StaticMeshComponent                      [STATIC]
+        +0x02C0  PhysicsConstraint4                 : PhysicsConstraintComponent               [SCENE]
+        +0x02C8  SM_WhirlyTarget_04                 : StaticMeshComponent                      [STATIC]
+        +0x02D0  PhysicsConstraint3                 : PhysicsConstraintComponent               [SCENE]
+        +0x02D8  SM_WhirlyTarget_03                 : StaticMeshComponent                      [STATIC]
+        +0x02E0  PhysicsConstraint2                 : PhysicsConstraintComponent               [SCENE]
+        +0x02E8  SM_WhirlyTarget_02                 : StaticMeshComponent                      [STATIC]
+        +0x02F0  PhysicsConstraint1                 : PhysicsConstraintComponent               [SCENE]
+        +0x02F8  SM_WhirlyTarget_01                 : StaticMeshComponent                      [STATIC]
+        +0x0300  PhysicsConstraint                  : PhysicsConstraintComponent               [SCENE]
+        +0x0308  SM_Whirly_SM_WhirlyMain            : StaticMeshComponent                      [STATIC]
+        +0x0310  SM_Whirly_SM_WhirlHolder           : StaticMeshComponent                      [STATIC]
+        +0x0318  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[48] BP_lights_projectorSM_lights_projector_C
+    Instances  : 2
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (7):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02A8  SM_lights_projector_head1          : StaticMeshComponent                      [STATIC]
+        +0x02B0  SpotLight                          : SpotLightComponent                       [SCENE]
+        +0x02B8  SM_lights_projector_head           : StaticMeshComponent                      [STATIC]
+        +0x02C0  SM_lights_projector_holder         : StaticMeshComponent                      [STATIC]
+        +0x02C8  SM_lights_projector_base           : StaticMeshComponent                      [STATIC]
+        +0x02D0  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[49] MetalDetector_C
+    Instances  : 2
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (5):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02B0  RectLight                          : RectLightComponent                       [SCENE]
+        +0x02B8  Box                                : BoxComponent                             [SCENE]
+        +0x02C0  source                             : StaticMeshComponent                      [STATIC]
+        +0x02C8  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[50] Speaker_C
+    Instances  : 2
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (4):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02B0  Audio                              : AudioComponent                           [SCENE]
+        +0x02B8  SM_Speaker_01a                     : StaticMeshComponent                      [STATIC]
+        +0x02C0  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[51] TimerTV_C
+    Instances  : 2
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (6):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02B0  Box                                : BoxComponent                             [SCENE]
+        +0x02B8  TextRender1                        : TextRenderComponent                      [SCENE]
+        +0x02C0  TextRender                         : TextRenderComponent                      [SCENE]
+        +0x02C8  SM_TV_on                           : StaticMeshComponent                      [STATIC]
+        +0x02D0  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[52] AbstractNavData
+    Instances  : 1
+    Parents    : NavigationData -> Actor -> Object
+    Flags      : -
+    Components (1):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: SceneComp
+
+[53] BP_7HoleBarrier_C
+    Instances  : 1
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (4):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02A8  SM_7HoleBarrier_Markings           : StaticMeshComponent                      [STATIC]
+        +0x02B0  SM_7HoleBarrier                    : StaticMeshComponent                      [STATIC]
+        +0x02B8  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[54] BP_9HoleBarrier_C
+    Instances  : 1
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (4):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02A8  SM_9HoleBarrier_Markings           : StaticMeshComponent                      [STATIC]
+        +0x02B0  SM_9HoleBarrier                    : StaticMeshComponent                      [STATIC]
+        +0x02B8  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[55] BP_BigPopper_master_C
+    Instances  : 1
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (4):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02B0  SM_PopperBig                       : StaticMeshComponent                      [STATIC]
+        +0x02B8  PhysicsConstraint                  : PhysicsConstraintComponent               [SCENE]
+        +0x02C0  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[56] BP_BodycamPlayerCameraManager_C
+    Instances  : 1
+    Parents    : BodycamPlayerCameraManager -> PlayerCameraManager -> Actor -> Object
+    Flags      : -
+    Components (3):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: TransformComponent0
+        +0x02B0  TransformComponent                 : SceneComponent                           [SCENE]
+                  -> live object: TransformComponent0
+        +0x25B0  EndRoundCameraEffect               : TimelineComponent                        [LOGIC]
+
+[57] BP_Door_01a_Child_C
+    Instances  : 1
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (9):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02A8  SM_Metal_Door_01_split_glass_wire  : StaticMeshComponent                      [STATIC]
+        +0x02B0  SM_Metal_Door_01b_split_glass      : StaticMeshComponent                      [STATIC]
+        +0x02B8  SM_Metal_Door_01b_split_glass_wire : StaticMeshComponent                      [STATIC]
+        +0x02C0  SM_Metal_Door_01_split_glass       : StaticMeshComponent                      [STATIC]
+        +0x02C8  SM_Metal_Door_01b_split            : StaticMeshComponent                      [STATIC]
+        +0x02D0  SM_Metal_Door_01a_split            : StaticMeshComponent                      [STATIC]
+        +0x02D8  F                                  : StaticMeshComponent                      [STATIC]
+        +0x02E0  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[58] BP_Fakelight_C
+    Instances  : 1
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (3):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02A8  Cube                               : StaticMeshComponent                      [STATIC]
+        +0x02B0  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[59] BP_Loadout_C
+    Instances  : 1
+    Parents    : BodycamLoadoutRenderer -> Actor -> Object
+    Flags      : -
+    Components (148):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x0178  InputComponent                     : BodycamInputComponent                    [LOGIC]
+                  -> live object: BodycamInputComponent_2147481746
+        +0x02B0  PointLight1                        : PointLightComponent                      [SCENE]
+        +0x02B8  PointLight                         : PointLightComponent                      [SCENE]
+        +0x02C0  RectLight4                         : RectLightComponent                       [SCENE]
+        +0x02C8  RectLight2                         : RectLightComponent                       [SCENE]
+        +0x02D0  RectLight1                         : RectLightComponent                       [SCENE]
+        +0x02D8  Arrow39                            : ArrowComponent                           [SCENE]
+        +0x02E0  Arrow                              : SceneComponent                           [SCENE]
+        +0x02E8  SpringArmArrow                     : SpringArmComponent                       [SCENE]
+        +0x02F0  Arrow38                            : ArrowComponent                           [SCENE]
+        +0x02F8  Bipod                              : SceneComponent                           [SCENE]
+        +0x0300  SpringArmBipod                     : SpringArmComponent                       [SCENE]
+        +0x0308  Arrow37                            : ArrowComponent                           [SCENE]
+        +0x0310  Magazine_Base                      : SceneComponent                           [SCENE]
+        +0x0318  SpringArmMagazine_Base             : SpringArmComponent                       [SCENE]
+        +0x0320  Arrow36                            : ArrowComponent                           [SCENE]
+        +0x0328  Canted_Upperbarrel_Mount           : SceneComponent                           [SCENE]
+        +0x0330  SpringArmCanted_Upperbarrel_Mount  : SpringArmComponent                       [SCENE]
+        +0x0338  Arrow35                            : ArrowComponent                           [SCENE]
+        +0x0340  Canted_optic_mount                 : SceneComponent                           [SCENE]
+        +0x0348  SpringArmCanted_Optic_Mount        : SpringArmComponent                       [SCENE]
+        +0x0350  RotationRoot                       : SceneComponent                           [SCENE]
+        +0x0358  Arrow34                            : ArrowComponent                           [SCENE]
+        +0x0360  Laser                              : SceneComponent                           [SCENE]
+        +0x0368  SpringArmLaser                     : SpringArmComponent                       [SCENE]
+        +0x0370  Arrow33                            : ArrowComponent                           [SCENE]
+        +0x0378  FPV_Camera_Support                 : SceneComponent                           [SCENE]
+        +0x0380  SpringArmFPV_Camera_Support        : SpringArmComponent                       [SCENE]
+        +0x0388  Nut                                : SceneComponent                           [SCENE]
+        +0x0390  SpringArmNut                       : SpringArmComponent                       [SCENE]
+        +0x0398  Reticle_Canted                     : SceneComponent                           [SCENE]
+        +0x03A0  SpringArmReticle_Canted            : SpringArmComponent                       [SCENE]
+        +0x03A8  Reticle_Magnified                  : SceneComponent                           [SCENE]
+        +0x03B0  SpringArmReticle_Magnified         : SpringArmComponent                       [SCENE]
+        +0x03B8  Led                                : SceneComponent                           [SCENE]
+        +0x03C0  SpringArmLed                       : SpringArmComponent                       [SCENE]
+        +0x03C8  Canted_Optic                       : SceneComponent                           [SCENE]
+        +0x03D0  SpringArmCanted_Optic              : SpringArmComponent                       [SCENE]
+        +0x03D8  Forearm                            : SceneComponent                           [SCENE]
+        +0x03E0  SpringArmForearm                   : SpringArmComponent                       [SCENE]
+        +0x03E8  Arrow32                            : ArrowComponent                           [SCENE]
+        +0x03F0  Karambit                           : SceneComponent                           [SCENE]
+        +0x03F8  SpringArmKarambit                  : SpringArmComponent                       [SCENE]
+        +0x0400  AlphaSceneCaptureComponent2D       : SceneCaptureComponent2D                  [SCENE]
+        +0x0408  Arrow31                            : ArrowComponent                           [SCENE]
+        +0x0410  Hammer                             : SceneComponent                           [SCENE]
+        +0x0418  SpringArmHammer                    : SpringArmComponent                       [SCENE]
+        +0x0420  Arrow30                            : ArrowComponent                           [SCENE]
+        +0x0428  Threaded_Barrel                    : SceneComponent                           [SCENE]
+        +0x0430  SpringArmThreaded_Barrel           : SpringArmComponent                       [SCENE]
+        +0x0438  Arrow29                            : ArrowComponent                           [SCENE]
+        +0x0440  Optic_Mount                        : SceneComponent                           [SCENE]
+        +0x0448  SpringArmOptic_Mount               : SpringArmComponent                       [SCENE]
+        +0x0450  Arrow28                            : ArrowComponent                           [SCENE]
+        +0x0458  RC_Trataxes_Device                 : SceneComponent                           [SCENE]
+        +0x0460  SpringArmRC_Trataxes_Device        : SpringArmComponent                       [SCENE]
+        +0x0468  Arrow27                            : ArrowComponent                           [SCENE]
+        +0x0470  Drone_Whoop_Device                 : SceneComponent                           [SCENE]
+        +0x0478  SpringArmDrone_Whoop_Device        : SpringArmComponent                       [SCENE]
+        +0x0480  Arrow26                            : ArrowComponent                           [SCENE]
+        +0x0488  Drone_Long_Range_Device            : SceneComponent                           [SCENE]
+        +0x0490  SpringArmDrone_Long_Range_Device   : SpringArmComponent                       [SCENE]
+        +0x0498  Arrow25                            : ArrowComponent                           [SCENE]
+        +0x04A0  Arrow24                            : ArrowComponent                           [SCENE]
+        +0x04A8  Arrow23                            : ArrowComponent                           [SCENE]
+        +0x04B0  Arrow22                            : ArrowComponent                           [SCENE]
+        +0x04B8  Arrow21                            : ArrowComponent                           [SCENE]
+        +0x04C0  Arrow20                            : ArrowComponent                           [SCENE]
+        +0x04C8  Arrow19                            : ArrowComponent                           [SCENE]
+        +0x04D0  Arrow18                            : ArrowComponent                           [SCENE]
+        +0x04D8  Arrow17                            : ArrowComponent                           [SCENE]
+        +0x04E0  Arrow16                            : ArrowComponent                           [SCENE]
+        +0x04E8  Arrow15                            : ArrowComponent                           [SCENE]
+        +0x04F0  Arrow14                            : ArrowComponent                           [SCENE]
+        +0x04F8  Arrow13                            : ArrowComponent                           [SCENE]
+        +0x0500  Arrow12                            : ArrowComponent                           [SCENE]
+        +0x0508  Arrow11                            : ArrowComponent                           [SCENE]
+        +0x0510  Arrow10                            : ArrowComponent                           [SCENE]
+        +0x0518  Arrow9                             : ArrowComponent                           [SCENE]
+        +0x0520  Arrow8                             : ArrowComponent                           [SCENE]
+        +0x0528  Arrow7                             : ArrowComponent                           [SCENE]
+        +0x0530  Arrow6                             : ArrowComponent                           [SCENE]
+        +0x0538  Arrow5                             : ArrowComponent                           [SCENE]
+        +0x0540  Arrow4                             : ArrowComponent                           [SCENE]
+        +0x0548  Arrow3                             : ArrowComponent                           [SCENE]
+        +0x0550  Arrow2                             : ArrowComponent                           [SCENE]
+        +0x0558  Arrow1                             : ArrowComponent                           [SCENE]
+        +0x0560  Arrow40                            : ArrowComponent                           [SCENE]
+        +0x0568  RectLight3                         : RectLightComponent                       [SCENE]
+        +0x0570  RectLight                          : RectLightComponent                       [SCENE]
+        +0x0578  SceneCaptureComponent2D            : SceneCaptureComponent2D                  [SCENE]
+        +0x0580  SpringArmReticle                   : SpringArmComponent                       [SCENE]
+        +0x0588  Reticle                            : SceneComponent                           [SCENE]
+        +0x0590  SpringArmWheel                     : SpringArmComponent                       [SCENE]
+        +0x0598  Wheel                              : SceneComponent                           [SCENE]
+        +0x05A0  Action_Camera_Support              : SceneComponent                           [SCENE]
+        +0x05A8  SpringArmAction_Camera_Support     : SpringArmComponent                       [SCENE]
+        +0x05B0  Shell                              : SceneComponent                           [SCENE]
+        +0x05B8  SpringArmShell                     : SpringArmComponent                       [SCENE]
+        +0x05C0  SpringArmSpoiler                   : SpringArmComponent                       [SCENE]
+        +0x05C8  Spoiler                            : SceneComponent                           [SCENE]
+        +0x05D0  Propeller                          : SceneComponent                           [SCENE]
+        +0x05D8  SpringArmPropeller                 : SpringArmComponent                       [SCENE]
+        +0x05E0  Rotor                              : SceneComponent                           [SCENE]
+        +0x05E8  SpringArmRotor                     : SpringArmComponent                       [SCENE]
+        +0x05F0  Antenna                            : SceneComponent                           [SCENE]
+        +0x05F8  SpringArmAntenna                   : SpringArmComponent                       [SCENE]
+        +0x0600  Action_Camera                      : SceneComponent                           [SCENE]
+        +0x0608  SpringArmAction_Camera             : SpringArmComponent                       [SCENE]
+        +0x0610  battery                            : SceneComponent                           [SCENE]
+        +0x0618  SpringArmBattery                   : SpringArmComponent                       [SCENE]
+        +0x0620  FPV_Camera                         : SceneComponent                           [SCENE]
+        +0x0628  SpringArmFPV_Camera                : SpringArmComponent                       [SCENE]
+        +0x0630  Pump                               : SceneComponent                           [SCENE]
+        +0x0638  SpringArmPump                      : SpringArmComponent                       [SCENE]
+        +0x0640  Slide                              : SceneComponent                           [SCENE]
+        +0x0648  SpringArmSlide                     : SpringArmComponent                       [SCENE]
+        +0x0650  Sticker                            : SceneComponent                           [SCENE]
+        +0x0658  SpringArmSticker                   : SpringArmComponent                       [SCENE]
+        +0x0660  Charm                              : SceneComponent                           [SCENE]
+        +0x0668  SpringArmCharm                     : SpringArmComponent                       [SCENE]
+        +0x0670  MainView                           : SceneComponent                           [SCENE]
+        +0x0678  SpringArmMainView                  : SpringArmComponent                       [SCENE]
+        +0x0680  Upperbarrel                        : SceneComponent                           [SCENE]
+        +0x0688  SpringArmUpperbarrel               : SpringArmComponent                       [SCENE]
+        +0x0690  Underbarrel                        : SceneComponent                           [SCENE]
+        +0x0698  SpringArmUnderbarrel               : SpringArmComponent                       [SCENE]
+        +0x06A0  Optic                              : SceneComponent                           [SCENE]
+        +0x06A8  SpringArmOptic                     : SpringArmComponent                       [SCENE]
+        +0x06B0  SpringArmSiderail                  : SpringArmComponent                       [SCENE]
+        +0x06B8  SpringArmGrip                      : SpringArmComponent                       [SCENE]
+        +0x06C0  SpringArmStock                     : SpringArmComponent                       [SCENE]
+        +0x06C8  SpringArmTrigger                   : SpringArmComponent                       [SCENE]
+        +0x06D0  SpringArmBarrel                    : SpringArmComponent                       [SCENE]
+        +0x06D8  Trigger                            : SceneComponent                           [SCENE]
+        +0x06E0  Barrel                             : SceneComponent                           [SCENE]
+        +0x06E8  Stock                              : SceneComponent                           [SCENE]
+        +0x06F0  Siderail                           : SceneComponent                           [SCENE]
+        +0x06F8  Grip                               : SceneComponent                           [SCENE]
+        +0x0700  Magazine                           : SceneComponent                           [SCENE]
+        +0x0708  SpringArmMagazine                  : SpringArmComponent                       [SCENE]
+        +0x0710  Muzzle                             : SceneComponent                           [SCENE]
+        +0x0718  CineCamera                         : CineCameraComponent                      [SCENE]
+        +0x0720  MainWeaponsRoot                    : SceneComponent                           [SCENE]
+        +0x0728  AmmoView2                          : SceneComponent                           [SCENE]
+        +0x0730  SpringArmMuzzle                    : SpringArmComponent                       [SCENE]
+        +0x0738  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+    Gameplay members (0 strong, 4 weak) - offsets are exact, relevance is a guess:
+           +0x0758  CameraInterpSpeed                  : double           (0x8 bytes)
+           +0x0788  ViewedItemIndex                    : int32            (0x4 bytes)
+           +0x0808  RotateItemPower                    : double           (0x8 bytes)
+           +0x0A48  CurrentSlotActionType              : enum class E_ItemSlotActionType (0x1 bytes)
+
+[60] BP_LobbyGameHUD_C
+    Instances  : 1
+    Parents    : BodycamGameHUD -> VTSGameHUD -> HUD -> Actor -> Object
+    Flags      : -
+    Components (2):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x04E0  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+    Gameplay members (0 strong, 2 weak) - offsets are exact, relevance is a guess:
+           +0x0601  OverrideDefaultPreset_             : bool             (0x1 bytes)
+           +0x071C  CurrentWaitTime                    : int32            (0x4 bytes)
+
+[61] BP_MusicPlayer_C
+    Instances  : 1
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (8):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02B0  Widget                             : WidgetComponent                          [SCENE]
+        +0x02B8  SM_FramedPictureB_02               : StaticMeshComponent                      [STATIC]
+        +0x02C0  Arrow                              : ArrowComponent                           [SCENE]
+        +0x02C8  BodycamInteractable                : BodycamInteractableComponent             [LOGIC]
+        +0x02D0  ST_Jukebox                         : StaticMeshComponent                      [STATIC]
+        +0x02D8  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+        +0x02E0  Active_Music                       : AudioComponent                           [SCENE]
+                  -> live object: AudioComponent_2147481748
+
+[62] BP_PPV_EditorPostProcessMaterials_C
+    Instances  : 1
+    Parents    : Actor -> Object
+    Flags      : -
+    Components : none live on the sampled instance
+
+[63] BP_Pills_01c_C
+    Instances  : 1
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (11):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: Root
+        +0x02A8  PrefabSceneRoot                    : SceneComponent                           [SCENE]
+        +0x02B0  Root                               : SceneComponent                           [SCENE]
+        +0x02B8  StaticMeshComponent0               : StaticMeshComponent                      [STATIC]
+        +0x02C0  StaticMeshComponent7               : StaticMeshComponent                      [STATIC]
+        +0x02C8  StaticMeshComponent6               : StaticMeshComponent                      [STATIC]
+        +0x02D0  StaticMeshComponent5               : StaticMeshComponent                      [STATIC]
+        +0x02D8  StaticMeshComponent4               : StaticMeshComponent                      [STATIC]
+        +0x02E0  StaticMeshComponent3               : StaticMeshComponent                      [STATIC]
+        +0x02E8  StaticMeshComponent2               : StaticMeshComponent                      [STATIC]
+        +0x02F0  StaticMeshComponent1               : StaticMeshComponent                      [STATIC]
+
+[64] BP_PoppersHolder_master2_C
+    Instances  : 1
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (9):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02B0  SM_Target_DuelTreeStatic           : StaticMeshComponent                      [STATIC]
+        +0x02B8  PhysicsConstraint3                 : PhysicsConstraintComponent               [SCENE]
+        +0x02C0  PhysicsConstraint1                 : PhysicsConstraintComponent               [SCENE]
+        +0x02C8  PhysicsConstraint2                 : PhysicsConstraintComponent               [SCENE]
+        +0x02D0  SM_WhirlyTarget_03                 : StaticMeshComponent                      [STATIC]
+        +0x02D8  SM_WhirlyTarget_02                 : StaticMeshComponent                      [STATIC]
+        +0x02E0  SM_WhirlyTarget_01                 : StaticMeshComponent                      [STATIC]
+        +0x02E8  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[65] BP_Rack_07b_C
+    Instances  : 1
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (30):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: Root
+        +0x02A8  PrefabSceneRoot                    : SceneComponent                           [SCENE]
+        +0x02B0  Root                               : SceneComponent                           [SCENE]
+        +0x02B8  StaticMeshComponent35              : StaticMeshComponent                      [STATIC]
+        +0x02C0  StaticMeshComponent34              : StaticMeshComponent                      [STATIC]
+        +0x02C8  StaticMeshComponent26              : StaticMeshComponent                      [STATIC]
+        +0x02D0  StaticMeshComponent32              : StaticMeshComponent                      [STATIC]
+        +0x02D8  StaticMeshComponent30              : StaticMeshComponent                      [STATIC]
+        +0x02E0  StaticMeshComponent28              : StaticMeshComponent                      [STATIC]
+        +0x02E8  StaticMeshComponent27              : StaticMeshComponent                      [STATIC]
+        +0x02F0  StaticMeshComponent25              : StaticMeshComponent                      [STATIC]
+        +0x02F8  StaticMeshComponent24              : StaticMeshComponent                      [STATIC]
+        +0x0300  StaticMeshComponent23              : StaticMeshComponent                      [STATIC]
+        +0x0308  StaticMeshComponent13              : StaticMeshComponent                      [STATIC]
+        +0x0310  StaticMeshComponent17              : StaticMeshComponent                      [STATIC]
+        +0x0318  StaticMeshComponent16              : StaticMeshComponent                      [STATIC]
+        +0x0320  StaticMeshComponent15              : StaticMeshComponent                      [STATIC]
+        +0x0328  StaticMeshComponent7               : StaticMeshComponent                      [STATIC]
+        +0x0330  StaticMeshComponent12              : StaticMeshComponent                      [STATIC]
+        +0x0338  StaticMeshComponent11              : StaticMeshComponent                      [STATIC]
+        +0x0340  StaticMeshComponent10              : StaticMeshComponent                      [STATIC]
+        +0x0348  StaticMeshComponent9               : StaticMeshComponent                      [STATIC]
+        +0x0350  StaticMeshComponent8               : StaticMeshComponent                      [STATIC]
+        +0x0358  StaticMeshComponent6               : StaticMeshComponent                      [STATIC]
+        +0x0360  StaticMeshComponent4               : StaticMeshComponent                      [STATIC]
+        +0x0368  StaticMeshComponent1               : StaticMeshComponent                      [STATIC]
+        +0x0370  StaticMeshComponent2               : StaticMeshComponent                      [STATIC]
+        +0x0378  StaticMeshComponent3               : StaticMeshComponent                      [STATIC]
+        +0x0380  StaticMeshComponent0               : StaticMeshComponent                      [STATIC]
+        +0x0388  StaticMeshComponent5               : StaticMeshComponent                      [STATIC]
+
+[66] BP_SmallPopper_C
+    Instances  : 1
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (4):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02B0  SM_PopperBig                       : StaticMeshComponent                      [STATIC]
+        +0x02B8  PhysicsConstraint                  : PhysicsConstraintComponent               [SCENE]
+        +0x02C0  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[67] BP_SurgicalStuff_01b_C
+    Instances  : 1
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (10):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: Root
+        +0x02A8  PrefabSceneRoot                    : SceneComponent                           [SCENE]
+        +0x02B0  Root                               : SceneComponent                           [SCENE]
+        +0x02B8  StaticMeshComponent0               : StaticMeshComponent                      [STATIC]
+        +0x02C0  StaticMeshComponent6               : StaticMeshComponent                      [STATIC]
+        +0x02C8  StaticMeshComponent5               : StaticMeshComponent                      [STATIC]
+        +0x02D0  StaticMeshComponent4               : StaticMeshComponent                      [STATIC]
+        +0x02D8  StaticMeshComponent3               : StaticMeshComponent                      [STATIC]
+        +0x02E0  StaticMeshComponent2               : StaticMeshComponent                      [STATIC]
+        +0x02E8  StaticMeshComponent1               : StaticMeshComponent                      [STATIC]
+
+[68] BP_TestTube_01b_C
+    Instances  : 1
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (9):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: Root
+        +0x02A8  PrefabSceneRoot                    : SceneComponent                           [SCENE]
+        +0x02B0  Root                               : SceneComponent                           [SCENE]
+        +0x02B8  StaticMeshComponent0               : StaticMeshComponent                      [STATIC]
+        +0x02C0  StaticMeshComponent5               : StaticMeshComponent                      [STATIC]
+        +0x02C8  StaticMeshComponent4               : StaticMeshComponent                      [STATIC]
+        +0x02D0  StaticMeshComponent3               : StaticMeshComponent                      [STATIC]
+        +0x02D8  StaticMeshComponent2               : StaticMeshComponent                      [STATIC]
+        +0x02E0  StaticMeshComponent1               : StaticMeshComponent                      [STATIC]
+
+[69] BP_WindowFrame_Cracked_05a_C
+    Instances  : 1
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (7):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: Root
+        +0x02A8  PrefabSceneRoot                    : SceneComponent                           [SCENE]
+        +0x02B0  Root                               : SceneComponent                           [SCENE]
+        +0x02B8  StaticMeshComponent3               : StaticMeshComponent                      [STATIC]
+        +0x02C0  StaticMeshComponent2               : StaticMeshComponent                      [STATIC]
+        +0x02C8  StaticMeshComponent1               : StaticMeshComponent                      [STATIC]
+        +0x02D0  StaticMeshComponent0               : StaticMeshComponent                      [STATIC]
+
+[70] BoxReflectionCapture
+    Instances  : 1
+    Parents    : ReflectionCapture -> Actor -> Object
+    Flags      : -
+    Components (2):
+        +0x01B8  RootComponent                      : BoxReflectionCaptureComponent            [SCENE] <ROOT>
+                  -> live object: NewReflectionComponent
+        +0x02A8  CaptureComponent                   : BoxReflectionCaptureComponent            [SCENE]
+                  -> live object: NewReflectionComponent
+
+[71] DefaultPhysicsVolume
+    Instances  : 1
+    Parents    : PhysicsVolume -> Volume -> Brush -> Actor -> Object
+    Flags      : -
+    Components (2):
+        +0x01B8  RootComponent                      : BrushComponent                           [SCENE] <ROOT>
+                  -> live object: BrushComponent0
+        +0x02C0  BrushComponent                     : BrushComponent                           [SCENE]
+                  -> live object: BrushComponent0
+    Gameplay members (0 strong, 1 weak) - offsets are exact, relevance is a guess:
+           +0x02E0  TerminalVelocity                   : float            (0x4 bytes)
+
+[72] GameNetworkManager
+    Instances  : 1
+    Parents    : Info -> Actor -> Object
+    Flags      : -
+    Components : none live on the sampled instance
+
+[73] GameSession
+    Instances  : 1
+    Parents    : Info -> Actor -> Object
+    Flags      : -
+    Components : none live on the sampled instance
+
+[74] Landscape
+    Instances  : 1
+    Parents    : LandscapeProxy -> PartitionActor -> Actor -> Object
+    Flags      : -
+    Components (1):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: RootComponent0
+    Gameplay members (0 strong, 6 weak) - offsets are exact, relevance is a guess:
+           +0x02FC  MaxLODLevel                        : int32            (0x4 bytes)
+           +0x0468  StreamingDistanceMultiplier        : float            (0x4 bytes)
+           +0x0554  GrassTypesMaxDiscardDistance       : float            (0x4 bytes)
+           +0x05A0  LDMaxDrawDistance                  : float            (0x4 bytes)
+           +0x05BC  CollisionMipLevel                  : int32            (0x4 bytes)
+           +0x05C0  SimpleCollisionMipLevel            : int32            (0x4 bytes)
+
+[75] LevelInstance
+    Instances  : 1
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (2):
+        +0x01B8  RootComponent                      : LevelInstanceComponent                   [SCENE] <ROOT>
+                  -> live object: Root
+        +0x02B0  LevelInstanceComponent             : LevelInstanceComponent                   [SCENE]
+                  -> live object: Root
+
+[76] LobbyB_C
+    Instances  : 1
+    Parents    : LevelScriptActor -> Actor -> Object
+    Flags      : -
+    Components (1):
+        +0x0178  InputComponent                     : BodycamInputComponent                    [LOGIC]
+                  -> live object: BodycamInputComponent_2147481863
+
+[77] Lobby_C
+    Instances  : 1
+    Parents    : LevelScriptActor -> Actor -> Object
+    Flags      : -
+    Components (1):
+        +0x0178  InputComponent                     : BodycamInputComponent                    [LOGIC]
+                  -> live object: BodycamInputComponent_2147481870
+
+[78] ParticleEventManager
+    Instances  : 1
+    Parents    : Actor -> Object
+    Flags      : -
+    Components : none live on the sampled instance
+
+[79] PlayerStart
+    Instances  : 1
+    Parents    : NavigationObjectBase -> Actor -> Object
+    Flags      : -
+    Components (2):
+        +0x01B8  RootComponent                      : CapsuleComponent                         [SCENE] <ROOT>
+                  -> live object: CollisionCapsule
+        +0x02B0  CapsuleComponent                   : CapsuleComponent                         [SCENE]
+                  -> live object: CollisionCapsule
+
+[80] ShootingRangeTV_C
+    Instances  : 1
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (4):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: DefaultSceneRoot
+        +0x02B0  Widget                             : WidgetComponent                          [SCENE]
+        +0x02B8  SM_TVSample                        : StaticMeshComponent                      [STATIC]
+        +0x02C0  DefaultSceneRoot                   : SceneComponent                           [SCENE]
+
+[81] TargetPoint
+    Instances  : 1
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (1):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: SceneComp
+
+[82] Target_Room1_C
+    Instances  : 1
+    Parents    : LevelScriptActor -> Actor -> Object
+    Flags      : -
+    Components (1):
+        +0x0178  InputComponent                     : BodycamInputComponent                    [LOGIC]
+                  -> live object: BodycamInputComponent_2147481865
+
+[83] Training_RoomB_C
+    Instances  : 1
+    Parents    : LevelScriptActor -> Actor -> Object
+    Flags      : -
+    Components (1):
+        +0x0178  InputComponent                     : BodycamInputComponent                    [LOGIC]
+                  -> live object: BodycamInputComponent_2147481864
+
+[84] Ultra_Dynamic_Sky_C
+    Instances  : 1
+    Parents    : Actor -> Object
+    Flags      : -
+    Components (15):
+        +0x01B8  RootComponent                      : SceneComponent                           [SCENE] <ROOT>
+                  -> live object: SkyRoot
+        +0x02F0  Captured_Scene_Sky_Light           : SkyLightComponent                        [SCENE]
+                  -> live object: Captured Scene Sky Light
+        +0x02F8  VolumetricCloud                    : VolumetricCloudComponent                 [SCENE]
+        +0x0300  PostProcess                        : PostProcessComponent                     [SCENE]
+        +0x0308  Cubemap_Sky_Light                  : SkyLightComponent                        [SCENE]
+                  -> live object: Cubemap Sky Light
+        +0x0310  Sky_Sphere                         : StaticMeshComponent                      [STATIC]
+        +0x0318  SkyAtmosphere                      : SkyAtmosphereComponent                   [SCENE]
+        +0x0320  Sun                                : DirectionalLightComponent                [SCENE]
+        +0x0328  Moon                               : DirectionalLightComponent                [SCENE]
+        +0x0330  HeightFog                          : ExponentialHeightFogComponent            [SCENE]
+        +0x0340  SkyRoot                            : SceneComponent                           [SCENE]
+        +0x0608  Sun_LightComponent                 : DirectionalLightComponent                [SCENE]
+                  -> live object: Sun
+        +0x0610  Moon_LightComponent                : DirectionalLightComponent                [SCENE]
+                  -> live object: Moon
+        +0x0618  SkyLightComponent                  : SkyLightComponent                        [SCENE]
+                  -> live object: Captured Scene Sky Light
+        +0x0620  Height_Fog_Component               : ExponentialHeightFogComponent            [SCENE]
+                  -> live object: HeightFog
+    Gameplay members (0 strong, 40 weak) - offsets are exact, relevance is a guess:
+           +0x0350  Cloud_Speed                        : double           (0x8 bytes)
+           +0x0373  Feature_Level                      : enum class EUDS_RenderingFeatureLevel (0x1 bytes)
+           +0x0570  Stars_Speed                        : double           (0x8 bytes)
+           +0x05A0  Aurora_Speed                       : double           (0x8 bytes)
+           +0x0628  Apply_Exposure_Settings            : bool             (0x1 bytes)
+           +0x0629  Exposure_Metering_Mode             : enum class EAutoExposureMethod (0x1 bytes)
+           +0x0698  Twinkle_Amount                     : double           (0x8 bytes)
+           +0x06A0  Twinkle_Speed                      : double           (0x8 bytes)
+           +0x0878  Around_Sun_Density_Exponent        : double           (0x8 bytes)
+           +0x0888  Around_Moon_Density_Exponent       : double           (0x8 bytes)
+           +0x0928  High_Frequency_Noise_Amount        : double           (0x8 bytes)
+           +0x0938  Max_High_Frequency_Noise_Levels    : int32            (0x4 bytes)
+           +0x0960  Floor_Luminance_Scale              : double           (0x8 bytes)
+           +0x0988  Tracing_Max_Distance__Inside_Cloud_Layer_ : double           (0x8 bytes)
+           +0x0990  Tracing_Max_Distance__Outside_Cloud_Layer_ : double           (0x8 bytes)
+           +0x09F8  Minimum_Erosion                    : double           (0x8 bytes)
+           +0x0A08  Cloud_Formation_Mip_Level          : double           (0x8 bytes)
+           +0x0A10  Reflection_Sample_Count_Scale      : double           (0x8 bytes)
+           +0x0A18  Reflection_Shadow_Sample_Count_Scale : double           (0x8 bytes)
+           +0x0A90  Formation_Change_Speed             : float            (0x4 bytes)
+           +0x0AE0  Time_Speed                         : double           (0x8 bytes)
+           +0x0AF8  Tracing_Max_Start_Distance         : double           (0x8 bytes)
+           +0x0B00  Aurora_Shape_Change_Speed          : double           (0x8 bytes)
+           +0x0BF8  TwoD_Aurora_Max_Samples            : double           (0x8 bytes)
+           +0x0C08  TwoD_Aurora_Line_Exponent          : double           (0x8 bytes)
+           +0x0C10  TwoD_Aurora_Mask_Exponent          : double           (0x8 bytes)
+           +0x0C20  Volumetric_Aurora_Sample_Count_Scale : double           (0x8 bytes)
+           +0x0DE8  Simulation_Speed                   : double           (0x8 bytes)
+           +0x0E00  Simulation_Speed_Night_Multiplier  : double           (0x8 bytes)
+           +0x0EB0  TwoD_Cloud_Shadows_Speed           : double           (0x8 bytes)
+           +0x0F58  Current_Volumetric_Clouds_MID      : int32            (0x4 bytes)
+           +0x0FC8  Current_Time_of_Day_Offset         : double           (0x8 bytes)
+           +0x0FD8  Time_of_Day_Change_Speed           : double           (0x8 bytes)
+           +0x1028  Dimming_Range_Exponent             : double           (0x8 bytes)
+           +0x1108  Low_Material_Quality_Sample_Count_Scale : double           (0x8 bytes)
+           +0x1110  Medium_Material_Quality_Sample_Count_Scale : double           (0x8 bytes)
+           +0x1118  Epic_Material_Quality_Sample_Count_Scale : double           (0x8 bytes)
+           +0x1220  Moon_Light_Current_Intensity_Value : double           (0x8 bytes)
+           +0x12E0  Render_Exponential_Height_Fog      : bool             (0x1 bytes)
+           +0x1388  Dust_Amount                        : double           (0x8 bytes)
+
